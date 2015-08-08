@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.Display;
 import android.view.WindowManager;
 
-import co.opentune.android.api.Api;
 
 
 public class OpenTuneApplication extends Application {
@@ -14,7 +13,7 @@ public class OpenTuneApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Api.init(this);
+//        Api.init(this);
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display d = wm.getDefaultDisplay();
     }
