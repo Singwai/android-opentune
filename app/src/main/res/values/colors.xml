@@ -1,0 +1,31 @@
+<resources>
+
+    <!--Transparent Opacity table
+    100% — FF
+    90% — E6
+    80% — CC
+    70% — B3
+    60% — 99
+    50% — 80
+    40% — 66
+    30% — 4D
+    20% — 33
+    10% — 1A
+    0% — 00
+    -->
+
+    <color name="primary_dark">#ffffff</color>
+    <color name="accent">#ffffff</color>
+
+    <!--<color name="thumbnailImageColorGreen">#a2bb60</color>-->
+    <!--<color name="thumbnailImageColorRed">#eb6d58</color>-->
+    <!--<color name="thumbnailImageColorBlue">#94c1c8</color>-->
+    <!--<color name="thumbnailImageColorYellow">#e6b81a</color>-->
+    <!--<color name="thumbnailImageColorPurple">#c492bc</color>-->
+    <!--<color name="thumbnailImageColorGray">#efefef</color>-->
+    <!--These 4 colors are for the following button,
+    in 4 different states, checked, unchecked, checkedFocus, uncheckedFocus
+    -->
+
+    <color name="primary">#ffffff</color>
+</resources>
