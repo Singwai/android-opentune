@@ -7,14 +7,20 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/iv_icon"/>
+        android:id="@+id/iv"/>
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_song"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="something"
-        android:textColor="@android:color/white"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="14sp" />
+
 </LinearLayout>
