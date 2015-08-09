@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +23,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import co.opentune.android.R;
+import co.opentune.android.SpacesItemDecoration;
+import co.opentune.android.UIHelper;
 import co.opentune.android.adapter.CategoryContentHelper;
 import co.opentune.android.adapter.PopularSongAdapter;
 import co.opentune.android.api.Api;
@@ -43,8 +44,8 @@ public class ExploreFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_explore, null);
-//            llHsv = (LinearLayout) rootView.findViewById(R.id.ll_hsv);
-//            initHorizontalCategory(inflater);
+            llHsv = (LinearLayout) rootView.findViewById(R.id.ll_hsv);
+            initHorizontalCategory(inflater);
             initRecyclerView();
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -58,8 +59,13 @@ public class ExploreFragment extends Fragment {
 
     private void initRecyclerView() {
         recyclerView = new RecyclerView(this.getActivity());
+        int dpi = UIHelper.dpsToPixel(108, this.getActivity());
+        recyclerView.setPadding(0, dpi, 0, 0);
+        dpi = UIHelper.dpsToPixel(8, this.getActivity());
+        recyclerView.addItemDecoration(new SpacesItemDecoration(dpi));
         recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 3));
         popularSongAdapter = new PopularSongAdapter(null, this.getActivity());
+        recyclerView.setAdapter(popularSongAdapter);
         ((FrameLayout) rootView).addView(recyclerView);
 
     }
@@ -91,7 +97,7 @@ public class ExploreFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<PopularSong> popularSongs) {
             super.onPostExecute(popularSongs);
-            Log.d("size" , popularSongs.size()+"");
+            Log.d("size", popularSongs.size() + "");
             ExploreFragment.this.popularSongAdapter.appendData(popularSongs);
         }
 

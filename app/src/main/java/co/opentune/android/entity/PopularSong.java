@@ -51,7 +51,7 @@ public class PopularSong {
         if (jsonObject != null){
             JSONArray j = jsonObject.optJSONArray("im:image");
             if (j != null && j.length() >=1){
-                JSONObject j2 = j.optJSONObject(0);
+                JSONObject j2 = j.optJSONObject(2);
                 if (j2 != null){
                     return j2.optString("label");
                 }

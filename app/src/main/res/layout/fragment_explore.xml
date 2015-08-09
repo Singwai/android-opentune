@@ -7,7 +7,7 @@
     <HorizontalScrollView
         android:id="@+id/hsv_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="108dp"
         android:scrollbars="none"
         android:visibility="gone">
 
