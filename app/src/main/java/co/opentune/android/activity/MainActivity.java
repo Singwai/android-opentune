@@ -1,4 +1,4 @@
-package co.opentune.android;
+package co.opentune.android.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,8 +9,10 @@ import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
 
+import co.opentune.android.R;
 import co.opentune.android.adapter.ViewPagerAdapter;
 import co.opentune.android.fragments.BaseFragment;
+import co.opentune.android.fragments.homeFragment.ExploreFragment;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
 
@@ -29,6 +31,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
     private void initViewPager() {
         fragments = new ArrayList<>();
+        Fragment f = new ExploreFragment();
+        fragments.add(f);
         for (int i = 0; i < 3; i++) {
             Bundle data = new Bundle();
             data.putString("text", (i + 1) + "");

@@ -5,7 +5,6 @@
     android:background="@android:color/darker_gray"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/tv_fragment"
         android:layout_width="match_parent"
