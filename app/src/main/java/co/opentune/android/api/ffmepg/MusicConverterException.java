@@ -1,4 +1,4 @@
-package co.opentune.android.api;
+package co.opentune.android.api.ffmepg;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.*;
 /**
  * Created by Gavin on 8/8/2015.

@@ -4,5 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="search_view_hint">Search Your Favorite Music!</string>
+    <string name="MontserratRegular">MontserratRegular.ttf</string>
 
 </resources>

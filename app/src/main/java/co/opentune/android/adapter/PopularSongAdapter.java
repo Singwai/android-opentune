@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import co.opentune.android.FontHelper;
 import co.opentune.android.R;
 import co.opentune.android.entity.PopularSong;
 
@@ -55,11 +56,14 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
         private final ImageView iv;
         private final TextView tvSong;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, Context context) {
             super(v);
             iv = (ImageView) v.findViewById(R.id.iv);
-            tvArtist = (TextView) v.findViewById(R.id.tv_song);
-            tvSong = (TextView) v.findViewById(R.id.tv_artist);
+            tvArtist = (TextView) v.findViewById(R.id.tv_artist);
+            FontHelper.changeFont(context, tvArtist);
+
+            tvSong = (TextView) v.findViewById(R.id.tv_song);
+            FontHelper.changeFont(context, tvSong);
         }
 
         public TextView getTvArtist() {
@@ -90,7 +94,7 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.music_card, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, context);
     }
 
     @Override
