@@ -30,6 +30,7 @@ import co.opentune.android.adapter.PopularSongAdapter;
 import co.opentune.android.api.Api;
 import co.opentune.android.entity.Category;
 import co.opentune.android.entity.PopularSong;
+import co.opentune.android.parser.PopularSongParser;
 
 
 public class ExploreFragment extends Fragment {
@@ -59,11 +60,18 @@ public class ExploreFragment extends Fragment {
 
     private void initRecyclerView() {
         recyclerView = new RecyclerView(this.getActivity());
-        int dpi = UIHelper.dpsToPixel(108, this.getActivity());
-        recyclerView.setPadding(0, dpi, 0, 0);
-        dpi = UIHelper.dpsToPixel(8, this.getActivity());
+//        int dpi = UIHelper.dpsToPixel(108, this.getActivity());
+//        recyclerView.setPadding(0, dpi, 0, 0);
+        int  dpi = UIHelper.dpsToPixel(8, this.getActivity());
         recyclerView.addItemDecoration(new SpacesItemDecoration(dpi));
         recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 3));
+
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dpi = UIHelper.dpsToPixel(108, this.getActivity());
+
+        layoutParams.setMargins(0, dpi, 0,0);
+        recyclerView.setLayoutParams(layoutParams);
         popularSongAdapter = new PopularSongAdapter(null, this.getActivity());
         recyclerView.setAdapter(popularSongAdapter);
         ((FrameLayout) rootView).addView(recyclerView);
@@ -72,18 +80,18 @@ public class ExploreFragment extends Fragment {
 
     private void initHorizontalCategory(LayoutInflater inflater) {
         ArrayList<Category> categories = CategoryContentHelper.categories;
-//        int dpi = UIHelper.dpsToPixel(64, this.getActivity());
+        int dpi = UIHelper.dpsToPixel(8, this.getActivity());
         Activity activity = this.getActivity();
-//        for (int i = 0 ; i  < categories.size() ; i ++){
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpi, dpi);
-        View v = inflater.inflate(R.layout.category_cell, null);
-//            v.setLayoutParams(layoutParams);
-        ((TextView) v.findViewById(R.id.tv_title)).setText(categories.get(1).title);
-        ((ImageView) v.findViewById(R.id.iv_icon)).setImageDrawable(ContextCompat.getDrawable(activity, categories.get(1).drawableIcon));
-//            llHsv.addView(v);
-//        }
-        ((FrameLayout) rootView).addView(v);
+        for (int i = 0; i < categories.size(); i++) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UIHelper.dpsToPixel(72, this.getActivity()));
+            layoutParams.setMargins(dpi, 0, dpi, 0);
+            View v = inflater.inflate(R.layout.category_cell, null);
 
+            v.setLayoutParams(layoutParams);
+            ((TextView) v.findViewById(R.id.tv_title)).setText(categories.get(1).title);
+            ((ImageView) v.findViewById(R.id.iv_icon)).setImageDrawable(ContextCompat.getDrawable(activity, categories.get(1).drawableIcon));
+            llHsv.addView(v);
+        }
     }
 
     public class ItunesPopularTask extends AsyncTask<Void, Void, ArrayList<PopularSong>> {
@@ -111,7 +119,7 @@ public class ExploreFragment extends Fragment {
                     JSONArray raw = result.optJSONArray("entry");
                     if (raw != null) {
                         try {
-                            ArrayList<PopularSong> popularSongs = PopularSong.parseArray(raw);
+                            ArrayList<PopularSong> popularSongs = PopularSongParser.ItunePopularParser.parseArray(raw);
                             return popularSongs;
                         } catch (JSONException e) {
                             e.printStackTrace();
