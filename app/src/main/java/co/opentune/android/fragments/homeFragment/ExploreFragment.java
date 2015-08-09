@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ActionMenuView;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,16 +44,17 @@ public class ExploreFragment extends Fragment {
 
     private void initHorizontalCategory(LayoutInflater inflater) {
         ArrayList<Category> categories = CategoryContentHelper.categories;
-        int dpi = UIHelper.dpsToPixel(48, this.getActivity());
+//        int dpi = UIHelper.dpsToPixel(64, this.getActivity());
         Activity activity = this.getActivity();
-        for (int i = 0 ; i  < categories.size() ; i ++){
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpi, dpi);
+//        for (int i = 0 ; i  < categories.size() ; i ++){
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpi, dpi);
             View v = inflater.inflate(R.layout.category_cell, null);
-            v.setLayoutParams(layoutParams);
-            ((TextView) v.findViewById(R.id.tv_title)).setText(categories.get(i).title);
-            ((ImageView) v.findViewById(R.id.iv_icon)).setImageDrawable(ContextCompat.getDrawable(activity, categories.get(i).drawableIcon));
-            llHsv.addView(v);
-        }
+//            v.setLayoutParams(layoutParams);
+            ((TextView) v.findViewById(R.id.tv_title)).setText(categories.get(1).title);
+            ((ImageView) v.findViewById(R.id.iv_icon)).setImageDrawable(ContextCompat.getDrawable(activity, categories.get(1).drawableIcon));
+//            llHsv.addView(v);
+//        }
+        ((FrameLayout)rootView).addView(v);
 
     }
 

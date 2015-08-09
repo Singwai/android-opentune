@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
@@ -9,7 +9,8 @@
         android:id="@+id/hsv_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_hsv"
@@ -17,11 +18,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <include layout="@layout/category_cell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -34,4 +30,4 @@
     <!--android:text="A"-->
     <!--android:textColor="#33b5e5"-->
     <!--android:textSize="240sp" />-->
-</LinearLayout>
+</FrameLayout>
