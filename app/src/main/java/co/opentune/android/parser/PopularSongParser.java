@@ -57,9 +57,17 @@ public class PopularSongParser {
                 String artistName = parseArtistName(jsonObject);
                 String songName = parseSongName(jsonObject);
                 String url = parseAvatarUrl(jsonObject);
+                String albumName = parseAlbumName(jsonObject);
                 if (artistName != null && songName != null && url != null) {
-                    return new PopularSong(url, artistName, songName);
+                    return new PopularSong(url, artistName, songName, "");
                 }
+            }
+            return null;
+        }
+
+        private static String parseAlbumName(JSONObject jsonObject) {
+            if (jsonObject != null){
+                return jsonObject.optString("collectionName");
             }
             return null;
         }
@@ -106,9 +114,23 @@ public class PopularSongParser {
                 String artistName = parseArtistName(jsonObject);
                 String songName = parseSongName(jsonObject);
                 String url = parseAvatarUrl(jsonObject);
+                String albumName = parseAlbumName(jsonObject);
 
-                if (artistName != null && songName != null && url != null) {
-                    return new PopularSong(url, artistName, songName);
+                if (artistName != null && songName != null && url != null && albumName != null) {
+                    return new PopularSong(url, artistName, songName, albumName);
+                }
+            }
+            return null;
+        }
+
+        private static String parseAlbumName(JSONObject jsonObject) {
+            if (jsonObject != null){
+                JSONObject j = jsonObject.optJSONObject("im:collection");
+                if (j!= null){
+                    j = j.optJSONObject("im:name");
+                    if (j!= null){
+                        return j.optString("label");
+                    }
                 }
             }
             return null;

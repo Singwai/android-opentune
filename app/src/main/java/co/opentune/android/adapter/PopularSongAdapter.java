@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import co.opentune.android.FontHelper;
 import co.opentune.android.R;
 import co.opentune.android.entity.PopularSong;
+import co.opentune.android.listener.MusicCardOnClickListener;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -55,15 +56,17 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
         private final TextView tvArtist;
         private final ImageView iv;
         private final TextView tvSong;
+        private final View root;
 
         public ViewHolder(View v, Context context) {
             super(v);
+            root = v;
             iv = (ImageView) v.findViewById(R.id.iv);
             tvArtist = (TextView) v.findViewById(R.id.tv_artist);
             FontHelper.changeFont(context, tvArtist);
-
             tvSong = (TextView) v.findViewById(R.id.tv_song);
             FontHelper.changeFont(context, tvSong);
+            v.setOnClickListener(new MusicCardOnClickListener());
         }
 
         public TextView getTvArtist() {
@@ -79,6 +82,9 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
         }
 
 
+        public View getRoot() {
+            return root;
+        }
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
@@ -102,8 +108,9 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        PopularSong popularSong = this.popularSongs.get(position);
 
+        PopularSong popularSong = this.popularSongs.get(position);
+        holder.getRoot().setTag(popularSong);
         holder.getTvArtist().setText(popularSong.artistName);
         holder.getTvSong().setText(popularSong.songName);
         ImageView iv = holder.getIv();

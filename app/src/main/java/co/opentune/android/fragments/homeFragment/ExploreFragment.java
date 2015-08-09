@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class ExploreFragment extends Fragment {
         recyclerView = new RecyclerView(this.getActivity());
 //        int dpi = UIHelper.dpsToPixel(108, this.getActivity());
 //        recyclerView.setPadding(0, dpi, 0, 0);
-        int  dpi = UIHelper.dpsToPixel(8, this.getActivity());
+        int dpi = UIHelper.dpsToPixel(8, this.getActivity());
         recyclerView.addItemDecoration(new SpacesItemDecoration(dpi));
         recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 3));
 
@@ -71,7 +70,7 @@ public class ExploreFragment extends Fragment {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dpi = UIHelper.dpsToPixel(108, this.getActivity());
 
-        layoutParams.setMargins(0, dpi, 0,0);
+        layoutParams.setMargins(0, dpi, 0, 0);
         recyclerView.setLayoutParams(layoutParams);
         popularSongAdapter = new PopularSongAdapter(null, this.getActivity());
         recyclerView.setAdapter(popularSongAdapter);
@@ -106,8 +105,10 @@ public class ExploreFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<PopularSong> popularSongs) {
             super.onPostExecute(popularSongs);
-            Log.d("size", popularSongs.size() + "");
-            ExploreFragment.this.popularSongAdapter.appendData(popularSongs);
+            if (popularSongs != null) {
+                Log.d("size", popularSongs.size() + "");
+                ExploreFragment.this.popularSongAdapter.appendData(popularSongs);
+            }
         }
 
         @Override
