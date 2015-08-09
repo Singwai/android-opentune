@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
+import co.opentune.android.Utility.InputFormatHelper;
 import co.opentune.android.api.Api;
 import co.opentune.android.entity.PopularSong;
 
@@ -42,6 +43,7 @@ public class SearchPopularSongTaskController {
             notifySearchListener(key);
         } else {
             notifySearchStartListener();
+            new ITunesSearch(key).execute();
         }
     }
 
@@ -81,13 +83,14 @@ public class SearchPopularSongTaskController {
         void OnSearchStart();
     }
 
-    public class ItunesSeach extends AsyncTask<Void, Void, ArrayList<PopularSong>> {
+    public class ITunesSearch extends AsyncTask<Void, Void, ArrayList<PopularSong>> {
         public String url = "https://itunes.apple.com/search?term=%s&country=us&entity=musicTrack&media=music";
         public String query;
 
-        public ItunesSeach(String query) {
+        public ITunesSearch(String query) {
             this.query = query;
             this.url = String.format(url, query);
+            this.url = InputFormatHelper.esscapeHTMLChar(this.url);
         }
 
 

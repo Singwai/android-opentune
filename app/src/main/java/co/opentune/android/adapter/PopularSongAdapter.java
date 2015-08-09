@@ -41,8 +41,10 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
     private Context context;
 
     public void clear() {
-        popularSongs.clear();
-        notifyDataSetChanged();
+        if (popularSongs != null) {
+            popularSongs.clear();
+            notifyDataSetChanged();
+        }
     }
 
     /**

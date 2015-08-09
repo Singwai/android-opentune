@@ -1,12 +1,15 @@
 package co.opentune.android.fragments.homeFragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 
@@ -42,6 +45,17 @@ public class SearchFragment extends Fragment implements SearchResultListener {
             initRecyclerView();
             searchViewListener = new SearchViewListener(searchView, this);
             searchView.setOnQueryTextListener(searchViewListener);
+            recyclerView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent motionEvent) {
+                    View view = SearchFragment.this.getActivity().getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager) SearchFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                    return false;
+                }
+            });
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
@@ -61,7 +75,7 @@ public class SearchFragment extends Fragment implements SearchResultListener {
 
 
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dpi = UIHelper.dpsToPixel(108, this.getActivity());
+        dpi = UIHelper.dpsToPixel(56, this.getActivity());
 
         layoutParams.setMargins(0, dpi, 0, 0);
         recyclerView.setLayoutParams(layoutParams);
@@ -75,6 +89,13 @@ public class SearchFragment extends Fragment implements SearchResultListener {
     public void OnSearchResultReturn(String key, ArrayList<PopularSong> values) {
         popularSongAdapter.clear();
         popularSongAdapter.appendData(values);
+
+        View view = SearchFragment.this.getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) SearchFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
     }
 
     @Override

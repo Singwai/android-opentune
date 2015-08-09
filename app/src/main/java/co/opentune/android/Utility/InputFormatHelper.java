@@ -71,6 +71,6 @@ public class InputFormatHelper {
     }
 
     public static String esscapeHTMLChar(String query){
-        return Html.escapeHtml(query);
+        return Html.escapeHtml(query).replaceAll(" " , "%20");
     }
 }

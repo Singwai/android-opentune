@@ -36,6 +36,7 @@ public class SearchViewListener implements SearchView.OnQueryTextListener {
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        Log.d("search!" , query + "query");
         searchPopularSongTaskController.search(query);
         return true;
     }
