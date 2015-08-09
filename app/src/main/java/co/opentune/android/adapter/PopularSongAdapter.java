@@ -89,7 +89,7 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.music_cell, viewGroup, false);
+                .inflate(R.layout.music_card, viewGroup, false);
         return new ViewHolder(v);
     }
 

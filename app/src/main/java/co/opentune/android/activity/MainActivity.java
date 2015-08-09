@@ -15,7 +15,7 @@ import co.opentune.android.fragments.homeFragment.ExploreFragment;
 import co.opentune.android.fragments.homeFragment.MyMusicFragment;
 import co.opentune.android.fragments.homeFragment.SearchFragment;
 
-public class MainActivity extends BaseActivity implements OnClickListener {
+public class MainActivity extends BaseActivity  {
 
     private ViewPager pager;
     private TabLayout tabLayout;
@@ -45,10 +45,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         pager.setAdapter(fragmentPagerAdapter);
         pager.setCurrentItem(0);
         tabLayout.setupWithViewPager(pager);
+
     }
 
-    @Override
-    public void onClick(View v) {
-        pager.setCurrentItem((Integer) v.getTag());
-    }
 }

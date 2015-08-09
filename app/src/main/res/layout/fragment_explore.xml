@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <include layout="@layout/category_cell" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
