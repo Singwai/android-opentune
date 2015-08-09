@@ -1,19 +1,14 @@
 package co.opentune.android.fragments.homeFragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -21,15 +16,17 @@ import co.opentune.android.R;
 import co.opentune.android.SpacesItemDecoration;
 import co.opentune.android.UIHelper;
 import co.opentune.android.adapter.PopularSongAdapter;
-import co.opentune.android.api.Api;
 import co.opentune.android.entity.PopularSong;
-import co.opentune.android.parser.PopularSongParser;
+import co.opentune.android.search_task.SearchPopularSongTaskController.SearchResultListener;
+import co.opentune.android.search_task.SearchViewListener;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchResultListener {
     private View rootView;
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private PopularSongAdapter popularSongAdapter;
+    private SearchViewListener searchViewListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,10 @@ public class SearchFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_search, null);
+            searchView = (SearchView) rootView.findViewById(R.id.sv);
             initRecyclerView();
+            searchViewListener = new SearchViewListener(searchView, this);
+            searchView.setOnQueryTextListener(searchViewListener);
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
@@ -71,41 +71,14 @@ public class SearchFragment extends Fragment {
 
     }
 
-    public class ItunesSeach extends AsyncTask<Void, Void, ArrayList<PopularSong>> {
-        public String url = "https://itunes.apple.com/search?";
+    @Override
+    public void OnSearchResultReturn(String key, ArrayList<PopularSong> values) {
+        popularSongAdapter.clear();
+        popularSongAdapter.appendData(values);
+    }
 
-        public ItunesSeach(String query) {
-            url = url + "term=" + query + "&entity=music";
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<PopularSong> popularSongs) {
-            super.onPostExecute(popularSongs);
-            Log.d("size", popularSongs.size() + "");
-            SearchFragment.this.popularSongAdapter.appendData(popularSongs);
-        }
-
-        @Override
-        protected ArrayList<PopularSong> doInBackground(Void... voids) {
-            JSONObject result = Api.call(url, null, Api.HTTP_GET);
-
-            if (result != null) {
-                result = result.optJSONObject("feed");
-                if (result != null) {
-                    JSONArray raw = result.optJSONArray("entry");
-                    if (raw != null) {
-                        try {
-                            ArrayList<PopularSong> popularSongs = PopularSongParser.ItunePopularParser.parseArray(raw);
-                            return popularSongs;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-            return null;
-
-        }
+    @Override
+    public void OnSearchStart() {
 
     }
 

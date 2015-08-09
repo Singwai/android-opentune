@@ -48,13 +48,14 @@ public class ExploreFragment extends Fragment {
             llHsv = (LinearLayout) rootView.findViewById(R.id.ll_hsv);
             initHorizontalCategory(inflater);
             initRecyclerView();
+            new ItunesPopularTask("").execute();
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
             parent.removeView(rootView);
         }
 
-        new ItunesPopularTask("").execute();
+
         return rootView;
     }
 
@@ -118,12 +119,8 @@ public class ExploreFragment extends Fragment {
                 if (result != null) {
                     JSONArray raw = result.optJSONArray("entry");
                     if (raw != null) {
-                        try {
-                            ArrayList<PopularSong> popularSongs = PopularSongParser.ItunePopularParser.parseArray(raw);
-                            return popularSongs;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        ArrayList<PopularSong> popularSongs = PopularSongParser.parseArray(raw, PopularSongParser.SourceType.ITUNE_EXPLORE);
+                        return popularSongs;
                     }
                 }
             }

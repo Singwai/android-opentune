@@ -1,5 +1,7 @@
 package co.opentune.android.Utility;
 
+import android.text.Html;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -66,5 +68,9 @@ public class InputFormatHelper {
     public static String prettyURL (String uglyUrl){
         String prettyUrl = uglyUrl.replaceFirst("^(http://)?(www\\.)?", "");
         return prettyUrl;
+    }
+
+    public static String esscapeHTMLChar(String query){
+        return Html.escapeHtml(query);
     }
 }

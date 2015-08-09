@@ -14,14 +14,14 @@ import co.opentune.android.entity.PopularSong;
 public class PopularSongParser {
 
     public enum SourceType {
-        ITUNE_POPULAR,
-        ITUNE_SEARCH;
+        ITUNE_EXPLORE,
+        ITUNE_SEARCH
     }
 
 
     public static ArrayList<PopularSong> parseArray(JSONArray jsonArray, SourceType sourceType) {
         switch (sourceType) {
-            case ITUNE_POPULAR:
+            case ITUNE_EXPLORE:
                 try {
                     return ItunePopularParser.parseArray(jsonArray);
                 } catch (JSONException e) {
@@ -36,7 +36,6 @@ public class PopularSongParser {
                 }
                 break;
         }
-
         return null;
     }
 
@@ -82,7 +81,7 @@ public class PopularSongParser {
 
         private static String parseSongName(JSONObject jsonObject) {
             if (jsonObject != null) {
-                return j.optString("trackName");
+                return jsonObject.optString("trackName");
             }
             return null;
 

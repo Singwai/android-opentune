@@ -40,6 +40,11 @@ public class PopularSongAdapter extends RecyclerView.Adapter<PopularSongAdapter.
     private ArrayList<PopularSong> popularSongs;
     private Context context;
 
+    public void clear() {
+        popularSongs.clear();
+        notifyDataSetChanged();
+    }
+
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
