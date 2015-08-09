@@ -15,6 +15,7 @@
     -->
 
     <color name="primary_dark">#ffffff</color>
+    <color name="dark_back_ground_gray">#1a1b1c</color>
     <color name="accent">#ffffff</color>
 
     <!--<color name="thumbnailImageColorGreen">#a2bb60</color>-->
