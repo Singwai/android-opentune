@@ -34,7 +34,10 @@ public class PopularSongParser {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                break;
         }
+
+        return null;
     }
 
 
