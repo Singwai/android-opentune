@@ -22,17 +22,71 @@ public class PopularSongParser {
     public static ArrayList<PopularSong> parseArray(JSONArray jsonArray, SourceType sourceType) {
         switch (sourceType) {
             case ITUNE_POPULAR:
-                return ItunePopularParser.parseArray(jsonArray);
+                try {
+                    return ItunePopularParser.parseArray(jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case ITUNE_SEARCH:
+                try {
+                    return ItuneSearchParser.parseArray(jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
 
-    public static class
-    private static class ItuneSearchParser{
+    private static class ItuneSearchParser {
+        public static ArrayList<PopularSong> parseArray(JSONArray raw) throws JSONException {
+            ArrayList<PopularSong> result = new ArrayList<>();
+            for (int i = 0; i < raw.length(); i++) {
+                PopularSong p = parseJSONObject(raw.optJSONObject(i));
+                if (p != null) {
+                    result.add(p);
+                }
+            }
+            return result;
+        }
 
+        private static PopularSong parseJSONObject(JSONObject jsonObject) {
+            if (jsonObject != null) {
+                String artistName = parseArtistName(jsonObject);
+                String songName = parseSongName(jsonObject);
+                String url = parseAvatarUrl(jsonObject);
+                if (artistName != null && songName != null && url != null) {
+                    return new PopularSong(url, artistName, songName);
+                }
+            }
+            return null;
+        }
+
+        private static String parseAvatarUrl(JSONObject jsonObject) {
+            if (jsonObject != null) {
+                return jsonObject.optString("artworkUrl100");
+            }
+            return null;
+        }
+
+        private static String parseArtistName(JSONObject jsonObject) {
+            if (jsonObject != null) {
+                return jsonObject.optString("artistName");
+            }
+            return null;
+
+        }
+
+        private static String parseSongName(JSONObject jsonObject) {
+            if (jsonObject != null) {
+                return j.optString("trackName");
+            }
+            return null;
+
+        }
     }
 
-    private static class ItunePopularParser{
+    private static class ItunePopularParser {
 
         public static ArrayList<PopularSong> parseArray(JSONArray raw) throws JSONException {
             ArrayList<PopularSong> result = new ArrayList<>();
