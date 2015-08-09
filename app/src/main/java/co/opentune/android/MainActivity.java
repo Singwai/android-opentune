@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private ViewPager pager;
 	private int mScreenWidth;
@@ -26,21 +26,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_default);
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		mScreenWidth = dm.widthPixels;
-		item_width = (int) ((mScreenWidth / 4.0 + 0.5f));
-
 		pager = (ViewPager) findViewById(R.id.pager);
 		//initNav();
 		initViewPager();
 	}
 
 	private void initViewPager() {
-		fragments = new ArrayList<Fragment>();
+		fragments = new ArrayList<>();
     	for (int i = 0; i < 10; i++) {
-    		//Bundle data = new Bundle();
-    		//data.putString("text", (i+1)+"");
+    		Bundle data = new Bundle();
+    		data.putString("text", (i+1)+"");
     		BaseFragment fragment = new BaseFragment();
     		//fragment.setArguments(data);
     		fragments.add(fragment);
