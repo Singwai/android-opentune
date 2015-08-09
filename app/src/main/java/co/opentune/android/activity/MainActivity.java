@@ -11,8 +11,9 @@ import java.util.ArrayList;
 
 import co.opentune.android.R;
 import co.opentune.android.adapter.ViewPagerAdapter;
-import co.opentune.android.fragments.BaseFragment;
 import co.opentune.android.fragments.homeFragment.ExploreFragment;
+import co.opentune.android.fragments.homeFragment.MyMusicFragment;
+import co.opentune.android.fragments.homeFragment.SearchFragment;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
 
@@ -33,14 +34,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         fragments = new ArrayList<>();
         Fragment f = new ExploreFragment();
         fragments.add(f);
-        for (int i = 0; i < 3; i++) {
-            Bundle data = new Bundle();
-            data.putString("text", (i + 1) + "");
-            BaseFragment fragment = new BaseFragment();
-            //fragment.setArguments(data);
-            fragments.add(fragment);
-        }
-        ViewPagerAdapter fragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+
+        f = new SearchFragment() ;
+        fragments.add(f);
+
+        f = new MyMusicFragment();
+        fragments.add(f);
+
+        ViewPagerAdapter fragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, this);
         pager.setAdapter(fragmentPagerAdapter);
         pager.setCurrentItem(0);
         tabLayout.setupWithViewPager(pager);
